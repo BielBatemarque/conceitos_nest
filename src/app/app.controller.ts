@@ -1,18 +1,17 @@
 import { Controller, Get } from '@nestjs/common';
-// import { AppService } from './app.service';
-
+import { AppService } from './app.service';
 
 @Controller('home')
 export class AppController {
-  // constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get('hello') // Metodo da request
   getHello(): string {
-    return "qualquer coisa";
+    return 'qualquer coisa';
   }
 
   @Get()
   getExemplo(): string {
-    return "exemplo"
+    return this.appService.soluciona();
   }
 }
