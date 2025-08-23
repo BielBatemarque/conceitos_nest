@@ -4,7 +4,7 @@ import { RecadosService } from './recados.service';
 @Controller('recados')
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
-  @Get('')
+  @Get()
   findAll() {
     return this.recadosService.findAll();
   }
