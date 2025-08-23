@@ -6,7 +6,7 @@ export class RecadosService {
     return 'Retorna uma lista de recados';
   }
 
-  findOne(id: Number) {
+  findOne(id: string) {
     return `Retorna o recado de id: ${id}`;
   }
 }
