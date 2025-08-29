@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { RecadosService } from './recados.service';
 
@@ -17,7 +18,9 @@ export class RecadosController {
 
   @HttpCode(HttpStatus.OK)
   @Get()
-  findAll() {
+  findAll(@Query() pagination: any) {
+    const { limit, offset } = pagination;
+    console.log(limit, offset);
     return this.recadosService.findAll();
   }
 
