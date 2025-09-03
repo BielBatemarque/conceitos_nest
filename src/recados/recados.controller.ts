@@ -37,7 +37,7 @@ export class RecadosController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() body: any) {
-    this.recadosService.update(id, body);
+    return this.recadosService.update(id, body);
   }
 
   @Delete(':id')
