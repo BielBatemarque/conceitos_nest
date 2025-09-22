@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { Recado } from './entities/recado.entity';
 
 @Injectable()
@@ -20,7 +20,11 @@ export class RecadosService {
   }
 
   findOne(id: string) {
-    return this.recados?.find((recado) => recado.id == Number(id));
+    const recado = this.recados?.find((recado) => recado.id == Number(id));
+    if (recado) return recado
+    
+    // throw new HttpException("Recado não encontrado", HttpStatus.NOT_FOUND)
+    throw new NotFoundException("Recado nao encontrado");
   }
 
   create(body: any) {
@@ -39,6 +43,10 @@ export class RecadosService {
       (item) => item.id === +id,
     );
 
+    if (recadosExistenteIndex < 0) {
+      throw new NotFoundException("Recado não encontrado");
+    }
+
     if (recadosExistenteIndex >= 0) {
       const recadoExistente = this.recados[recadosExistenteIndex];
 
@@ -56,8 +64,12 @@ export class RecadosService {
       (item) => item.id === +id,
     );
 
-    if (recadosExistenteIndex) {
-      this.recados.splice(recadosExistenteIndex, 1);
+    if (recadosExistenteIndex < 0) {
+      throw new NotFoundException("Recado não encontrado");
     }
+
+    const recado = this.recados[recadosExistenteIndex];
+    this.recados.splice(recadosExistenteIndex, 1);
+    return recado;
   }
 }
