@@ -63,9 +63,9 @@ export class RecadosService {
     return this.recados[recadosExistenteIndex];
   }
 
-  remove(id: string) {
+  remove(id: number) {
     const recadosExistenteIndex = this.recados.findIndex(
-      (item) => item.id === +id,
+      (item) => item.id === id,
     );
 
     if (recadosExistenteIndex < 0) {
