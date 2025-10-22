@@ -28,7 +28,7 @@ export class RecadosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     console.log(id);
     return this.recadosService.findOne(id);
   }
