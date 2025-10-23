@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { RecadosModule } from 'src/recados/recados.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import 'dotenv/config';
+import { PessoasModule } from 'src/pessoas/pessoas.module';
 
 
 @Module({
@@ -18,7 +19,8 @@ import 'dotenv/config';
       autoLoadEntities: true, //Carrega entidades sem precisar especifica-las
       synchronize: true // Não deve ser utsado em produção
   }), 
-  RecadosModule
+  RecadosModule,
+  PessoasModule
 ],
   controllers: [AppController],
   providers: [AppService],
