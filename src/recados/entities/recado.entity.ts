@@ -30,6 +30,6 @@ export class Recado {
     @ManyToOne(() => Pessoa)
     // Especifica a coluna "de" que armazena o ID da pessoa que recebeu o recado
     @JoinColumn({name: 'para'})
-    para: string;
+    para: Pessoa;
 
 }

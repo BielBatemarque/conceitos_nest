@@ -15,7 +15,20 @@ export class RecadosService {
   ) {}
 
   async findAll() {
-    const recados = await this.recadoRepository.find();
+    const recados = await this.recadoRepository.find({
+      relations: ['de', 'para'],
+      order: { id: "DESC"},
+      select: {
+        de: {
+          id: true,
+          name: true
+        },
+        para: {
+          id: true,
+          name: true
+        }
+      }
+    });
     return recados; 
   }
 
@@ -34,14 +47,32 @@ export class RecadosService {
   async create(body: CreateRecadoDto) {
     //Encontrar a pessoa que esta criando o recado
     //Encontrar a pessoa da qual o recado esta sendo enviado
+    const { deId, paraId } = body;
+
+    const de = await this.pessoasService.findOne(deId);
+    const para = await  this.pessoasService.findOne(paraId);
 
     const newRecado = {
-      ...body,
+      texto: body.texto,
+      de: de,
+      para: para,
       lido: false,
       data: new Date()
     };
     const recado = this.recadoRepository.create(newRecado);
-    return await this.recadoRepository.save(recado);
+    await this.recadoRepository.save(recado);
+
+    return {
+      ...recado,
+      de: {
+        id: recado.de.id,
+        name: recado.de.name,
+      },
+      para: {
+        id: recado.para?.name,
+        name: recado?.para?.name
+      }
+    };
   }
 
   async update(id: number, updateRecadoDto: UpdateRecadoDto) {
