@@ -33,7 +33,11 @@ export class PessoasService {
   }
 
   async  findOne(id: number) {
-    return await this.pessoaRepository.findOneBy({ id: id });
+    const person =  await this.pessoaRepository.findOneBy({ id: id });
+
+    if (!person) throw new NotFoundException("Pessoa não encontrada");
+
+    return person;
   }
 
   async update(id: number, updatePessoaDto: UpdatePessoaDto) {
