@@ -69,7 +69,7 @@ export class RecadosService {
         name: recado.de.name,
       },
       para: {
-        id: recado.para?.name,
+        id: recado.para?.id,
         name: recado?.para?.name
       }
     };
