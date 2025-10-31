@@ -10,11 +10,13 @@ import {
   Patch,
   Post,
   Query,
+  UsePipes,
 } from '@nestjs/common';
 import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { ParseIntIdPipe } from 'src/common/pipes/parse-int-id.pipe';
 
 @Controller('recados')
 export class RecadosController {
@@ -27,6 +29,7 @@ export class RecadosController {
   }
 
   @Get(':id')
+  @UsePipes(ParseIntIdPipe)
   findOne(@Param('id') id: number) {
     console.log(id);
     return this.recadosService.findOne(id);
