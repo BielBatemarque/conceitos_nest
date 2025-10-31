@@ -14,6 +14,7 @@ import {
 import { RecadosService } from './recados.service';
 import { CreateRecadoDto } from './dto/create-recado.dto';
 import { UpdateRecadoDto } from './dto/update-recado.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @Controller('recados')
 export class RecadosController {
@@ -21,10 +22,8 @@ export class RecadosController {
 
   @HttpCode(HttpStatus.OK)
   @Get()
-  findAll(@Query() pagination: any) {
-    const { limit, offset } = pagination;
-    console.log(limit, offset);
-    return this.recadosService.findAll();
+  findAll(@Query() paginationDto: PaginationDto) {
+    return this.recadosService.findAll(paginationDto);
   }
 
   @Get(':id')
