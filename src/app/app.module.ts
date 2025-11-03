@@ -7,6 +7,8 @@ import 'dotenv/config';
 import { PessoasModule } from 'src/pessoas/pessoas.module';
 import { SimpleMiddleware } from 'src/common/middlewares/simple.middleware';
 import { AnotherMiddleware } from 'src/common/middlewares/another.middleware';
+import { APP_FILTER } from '@nestjs/core';
+import { MyExceptionFilter } from 'src/common/filters/my-exception.filter';
 
 
 @Module({
@@ -25,7 +27,13 @@ import { AnotherMiddleware } from 'src/common/middlewares/another.middleware';
   PessoasModule
 ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_FILTER,
+      useClass: MyExceptionFilter
+    }
+  ],
   exports: [],
 })
 export class AppModule implements NestModule {
