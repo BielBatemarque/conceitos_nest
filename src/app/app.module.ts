@@ -1,10 +1,12 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RecadosModule } from 'src/recados/recados.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import 'dotenv/config';
 import { PessoasModule } from 'src/pessoas/pessoas.module';
+import { SimpleMiddleware } from 'src/common/middlewares/simple.middleware';
+import { AnotherMiddleware } from 'src/common/middlewares/another.middleware';
 
 
 @Module({
@@ -26,4 +28,10 @@ import { PessoasModule } from 'src/pessoas/pessoas.module';
   providers: [AppService],
   exports: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(SimpleMiddleware, AnotherMiddleware).forRoutes({
+      path: '*', method: RequestMethod.ALL,
+    });
+  }
+}
