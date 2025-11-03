@@ -19,7 +19,6 @@ export class SimpleCacheInterceptor implements NestInterceptor{
         return next.handle().pipe(
             tap(data => {
                 this.cache.set(url, data);
-                console.log("Armazenado no cache", url);
             }),
         );
     }

@@ -12,8 +12,8 @@ export class TimeConnectionInterceptor implements NestInterceptor{
             tap((data) => {
                 const finalTime = Date.now();
                 const elapsedTime = finalTime - startTime;
-                console.log("TimeConnectionIntercepter executado (depois): " + elapsedTime);
-                console.log(data);
+                // console.log("TimeConnectionIntercepter executado (depois): " + elapsedTime);
+                // console.log(data);
             })
         )
     }

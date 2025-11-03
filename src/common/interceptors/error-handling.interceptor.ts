@@ -6,7 +6,7 @@ export class ErrorHandlingInterceptor implements NestInterceptor{
 
         return next.handle().pipe(
             catchError((error) => {
-                console.log(error.name);
+                // console.log(error.name);
                 return throwError(() => {
                     if (error.name == "NotFoundException") {
                         return new BadRequestException(error.message);
