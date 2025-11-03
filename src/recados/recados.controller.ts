@@ -3,8 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  HttpCode,
-  HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -23,14 +21,15 @@ import { ParseIntIdPipe } from 'src/common/pipes/parse-int-id.pipe';
 import { ErrorHandlingInterceptor } from 'src/common/interceptors/error-handling.interceptor';
 import type { Request } from 'express';
 import { IsAdminGuard } from 'src/common/guards/is-admin.guard';
+import { UrlParam } from 'src/common/params/url-param.decorator';
 
 @Controller('recados')
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
 
   @Get()
-  @UseGuards(IsAdminGuard)
-  findAll(@Query() paginationDto: PaginationDto, @Req() req: Request) {
+  findAll(@Query() paginationDto: PaginationDto, @UrlParam() url: string) {
+    console.log(url);
     return this.recadosService.findAll(paginationDto);
   }
 
