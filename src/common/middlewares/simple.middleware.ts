@@ -10,7 +10,8 @@ export class SimpleMiddleware implements NestMiddleware {
         if (authorization){
             req['user'] = {
                 nome: "Gabriel",
-                sobrenome: "Batemarque"
+                sobrenome: "Batemarque",
+                role: "admin"
             };
         }
 

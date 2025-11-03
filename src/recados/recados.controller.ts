@@ -11,6 +11,7 @@ import {
   Post,
   Query,
   Req,
+  UseGuards,
   UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
@@ -26,15 +27,17 @@ import { SimpleCacheInterceptor } from 'src/common/interceptors/simple-cache.int
 import { ChangeDataInterceptor } from 'src/common/interceptors/change-data.interceptor';
 import { AuthTokenInterceptor } from 'src/common/interceptors/auth-token.interceptor';
 import type { Request } from 'express';
+import { IsAdminGuard } from 'src/common/guards/is-admin.guard';
 
 @Controller('recados')
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) {}
 
-  @HttpCode(HttpStatus.OK)
   @Get()
-  @UseInterceptors(AddHeaderInterceptor)
-  @UseInterceptors(AuthTokenInterceptor)
+  // @HttpCode(HttpStatus.OK)
+  // @UseInterceptors(AddHeaderInterceptor)
+  // @UseInterceptors(AuthTokenInterceptor)
+  @UseGuards(IsAdminGuard)
   findAll(@Query() paginationDto: PaginationDto, @Req() req: Request) {
     console.log("RecadosController", req['user']);
     return this.recadosService.findAll(paginationDto);
