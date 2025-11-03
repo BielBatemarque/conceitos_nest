@@ -23,6 +23,7 @@ import { TimeConnectionInterceptor } from 'src/common/interceptors/time-connecti
 import { ErrorHandlingInterceptor } from 'src/common/interceptors/error-handling.interceptor';
 import { SimpleCacheInterceptor } from 'src/common/interceptors/simple-cache.interceptor';
 import { ChangeDataInterceptor } from 'src/common/interceptors/change-data.interceptor';
+import { AuthTokenInterceptor } from 'src/common/interceptors/auth-token.interceptor';
 
 @Controller('recados')
 export class RecadosController {
@@ -31,7 +32,7 @@ export class RecadosController {
   @HttpCode(HttpStatus.OK)
   @Get()
   @UseInterceptors(AddHeaderInterceptor)
-  @UseInterceptors(TimeConnectionInterceptor, ErrorHandlingInterceptor, SimpleCacheInterceptor, ChangeDataInterceptor)
+  @UseInterceptors(AuthTokenInterceptor)
   findAll(@Query() paginationDto: PaginationDto) {
     return this.recadosService.findAll(paginationDto);
   }
