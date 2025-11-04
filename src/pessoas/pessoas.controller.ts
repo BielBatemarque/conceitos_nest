@@ -16,7 +16,7 @@ export class PessoasController {
   findAll() {
     return this.pessoasService.findAll();
   }
-
+  
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.pessoasService.findOne(+id);
