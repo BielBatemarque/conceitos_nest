@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Inject,
   Param,
   ParseIntPipe,
   Patch,
@@ -22,13 +23,15 @@ import { ErrorHandlingInterceptor } from 'src/common/interceptors/error-handling
 import type { Request } from 'express';
 import { IsAdminGuard } from 'src/common/guards/is-admin.guard';
 import { UrlParam } from 'src/common/params/url-param.decorator';
+import { serverName } from 'src/common/constants/server-name.constant';
 
 @Controller('recados')
 export class RecadosController {
-  constructor(private readonly recadosService: RecadosService) {}
+  constructor(private readonly recadosService: RecadosService, @Inject(serverName) private readonly serverName: string) {}
 
   @Get()
   findAll(@Query() paginationDto: PaginationDto, @UrlParam() url: string) {
+    console.log(this.serverName);
     console.log(url);
     return this.recadosService.findAll(paginationDto);
   }
